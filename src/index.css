@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.react-datepicker {
+  /* background-color: rgb(235, 35, 35) !important;
+  color: rgb(175, 37, 37);
+  border: 1px solid #aeaeae;
+  border-radius: 0.3rem;
+  display: inline-block;
+  position: relative; */
+}
+
+.react-datepicker-wrapper {
+  display: inline-block;
+  padding: 0;
+  border: 10 solid;
+  width: 100%;
+}
+
+.react-datepicker__header {
+  text-align: center;
+  background-color: #da3535;
+  border-bottom: 1px solid #aeaeae;
+  border-top-left-radius: 0.3rem;
+  padding: 8px 0;
+  position: relative;
+}
+
+.react-datepicker__input-time-container {
+  clear: both;
+  width: 100%;
+  float: left;
+  margin: 5px 0 10px 15px;
+  text-align: left;
+    border-bottom: 1px solid #aeaeae;
+    color: red;
+}

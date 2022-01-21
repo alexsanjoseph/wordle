@@ -8,7 +8,10 @@ import { AboutModal } from './components/modals/AboutModal'
 import { InfoModal } from './components/modals/InfoModal'
 import { WinModal } from './components/modals/WinModal'
 import { StatsModal } from './components/modals/StatsModal'
-import { isWordInWordList, isWinningWord, solution } from './lib/words'
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
+// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+
 import { addStatsForCompletedGame, loadStats } from './lib/stats'
 import {
   loadGameStateFromLocalStorage,
@@ -119,6 +122,8 @@ function App() {
           onClick={() => setIsStatsModalOpen(true)}
         />
       </div>
+
+      {/* <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)}/> */}
       <Grid guesses={guesses} currentGuess={currentGuess} />
       <Keyboard
         onChar={onChar}
