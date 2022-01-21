@@ -2,11 +2,13 @@ import { getGuessStatuses } from '../../lib/statuses'
 import { Cell } from './Cell'
 
 type Props = {
-  guess: string
+  guess: string,
+  startDate: Date
 }
 
-export const CompletedRow = ({ guess }: Props) => {
-  const statuses = getGuessStatuses(guess)
+export const CompletedRow = ({ guess, startDate }: Props) => {
+
+  const statuses = getGuessStatuses(guess, startDate)
 
   return (
     <div className="flex justify-center mb-1">

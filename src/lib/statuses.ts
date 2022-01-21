@@ -1,4 +1,4 @@
-import { solution } from './words'
+import { getWordOfDay } from './words'
 
 export type CharStatus = 'absent' | 'present' | 'correct'
 
@@ -31,10 +31,11 @@ export type CharValue =
   | 'M'
 
 export const getStatuses = (
-  guesses: string[]
+  guesses: string[],
+  startDate: Date
 ): { [key: string]: CharStatus } => {
   const charObj: { [key: string]: CharStatus } = {}
-
+  const solution = getWordOfDay(startDate).solution
   guesses.forEach((word) => {
     word.split('').forEach((letter, i) => {
       if (!solution.includes(letter)) {
@@ -57,7 +58,8 @@ export const getStatuses = (
   return charObj
 }
 
-export const getGuessStatuses = (guess: string): CharStatus[] => {
+export const getGuessStatuses = (guess: string, startDate: Date): CharStatus[] => {
+  const solution = getWordOfDay(startDate).solution
   const splitSolution = solution.split('')
   const splitGuess = guess.split('')
 

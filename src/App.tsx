@@ -10,15 +10,16 @@ import { WinModal } from './components/modals/WinModal'
 import { StatsModal } from './components/modals/StatsModal'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-
+import { isWordInWordList, isWinningWord, getWordOfDay} from './lib/words'
 import { addStatsForCompletedGame, loadStats } from './lib/stats'
 import {
   loadGameStateFromLocalStorage,
   saveGameStateToLocalStorage,
 } from './lib/localStorage'
+import { start } from 'repl'
 
 function App() {
+  const [startDate, setStartDate] = useState(new Date)
   const [currentGuess, setCurrentGuess] = useState('')
   const [isGameWon, setIsGameWon] = useState(false)
   const [isWinModalOpen, setIsWinModalOpen] = useState(false)
@@ -29,22 +30,18 @@ function App() {
   const [isWordNotFoundAlertOpen, setIsWordNotFoundAlertOpen] = useState(false)
   const [isGameLost, setIsGameLost] = useState(false)
   const [shareComplete, setShareComplete] = useState(false)
+
   const [guesses, setGuesses] = useState<string[]>(() => {
-    const loaded = loadGameStateFromLocalStorage()
-    if (loaded?.solution !== solution) {
-      return []
-    }
-    if (loaded.guesses.includes(solution)) {
-      setIsGameWon(true)
-    }
-    return loaded.guesses
+    // const loaded = {guesses.}
+    return []
   })
+
 
   const [stats, setStats] = useState(() => loadStats())
 
-  useEffect(() => {
-    saveGameStateToLocalStorage({ guesses, solution })
-  }, [guesses])
+//   useEffect(() => {
+//     saveGameStateToLocalStorage({ guesses, getWordOfDay(startDate).solution })
+//   }, [guesses])
 
   useEffect(() => {
     if (isGameWon) {
@@ -77,7 +74,8 @@ function App() {
       }, 2000)
     }
 
-    const winningWord = isWinningWord(currentGuess)
+    const winningWord = isWinningWord(currentGuess, startDate)
+
 
     if (currentGuess.length === 5 && guesses.length < 6 && !isGameWon) {
       setGuesses([...guesses, currentGuess])
@@ -103,7 +101,7 @@ function App() {
       <Alert message="Not enough letters" isOpen={isNotEnoughLetters} />
       <Alert message="Word not found" isOpen={isWordNotFoundAlertOpen} />
       <Alert
-        message={`You lost, the word was ${solution}`}
+        message={`You lost, the word was ${getWordOfDay(startDate).solution}`}
         isOpen={isGameLost}
       />
       <Alert
@@ -123,18 +121,24 @@ function App() {
         />
       </div>
 
-      {/* <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)}/> */}
-      <Grid guesses={guesses} currentGuess={currentGuess} />
+      <DatePicker selected={startDate} onChange={(date: Date) => {
+          setStartDate(date)
+          console.log(getWordOfDay(startDate).solution)
+        }
+          }/>
+      <Grid guesses={guesses} currentGuess={currentGuess} startDate={startDate}/>
       <Keyboard
         onChar={onChar}
         onDelete={onDelete}
         onEnter={onEnter}
         guesses={guesses}
+        startDate={startDate}
       />
       <WinModal
         isOpen={isWinModalOpen}
         handleClose={() => setIsWinModalOpen(false)}
         guesses={guesses}
+        startDate={startDate}
         handleShare={() => {
           setIsWinModalOpen(false)
           setShareComplete(true)

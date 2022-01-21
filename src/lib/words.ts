@@ -8,21 +8,21 @@ export const isWordInWordList = (word: string) => {
   )
 }
 
-export const isWinningWord = (word: string) => {
-  return solution === word
+export const isWinningWord = (word: string, startDate: Date) => {
+  return getWordOfDay(startDate).solution === word
 }
 
-export const getWordOfDay = () => {
+export const getWordOfDay = (startDate: Date) => {
   // January 1, 2022 Game Epoch
-  const epochMs = 1641013200000
-  const now = Date.now()
-  const msInDay = 86400000
+  const epochMs = 1641013200000 - 86400 * 1000 * 197
+  const now = startDate.valueOf()
+  const msInDay = 86400 * 1000
   const index = Math.floor((now - epochMs) / msInDay)
-
+ console.log(index)
   return {
     solution: WORDS[index].toUpperCase(),
     solutionIndex: index,
   }
 }
 
-export const { solution, solutionIndex } = getWordOfDay()
+// export const { solution, solutionIndex } = getWordOfDay()
