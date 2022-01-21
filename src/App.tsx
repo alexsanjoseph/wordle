@@ -12,14 +12,9 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { isWordInWordList, isWinningWord, getWordOfDay} from './lib/words'
 import { addStatsForCompletedGame, loadStats } from './lib/stats'
-import {
-  loadGameStateFromLocalStorage,
-  saveGameStateToLocalStorage,
-} from './lib/localStorage'
-import { start } from 'repl'
 
 function App() {
-  const [startDate, setStartDate] = useState(new Date)
+  const [startDate, setStartDate] = useState(new Date())
   const [currentGuess, setCurrentGuess] = useState('')
   const [isGameWon, setIsGameWon] = useState(false)
   const [isWinModalOpen, setIsWinModalOpen] = useState(false)
