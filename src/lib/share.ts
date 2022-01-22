@@ -1,21 +1,22 @@
 import { getGuessStatuses } from './statuses'
 import { getWordOfDay } from './words'
 
-export const shareStatus = (guesses: string[], startDate: Date) => {
+export const shareStatus = (guesses: string[], solution: string) => {
   navigator.clipboard.writeText(
     'Wordle ' +
-      getWordOfDay(startDate).solutionIndex +
+    //   getWordOfDay(startDate).solutionIndex +
+      "1" +
       ' ' +
       guesses.length +
       '/6\n\n' +
-      generateEmojiGrid(guesses, startDate)
+      generateEmojiGrid(guesses, solution)
   )
 }
 
-export const generateEmojiGrid = (guesses: string[], startDate: Date) => {
+export const generateEmojiGrid = (guesses: string[], solution: string) => {
   return guesses
     .map((guess) => {
-      const status = getGuessStatuses(guess, startDate)
+      const status = getGuessStatuses(guess, solution)
       return guess
         .split('')
         .map((letter, i) => {

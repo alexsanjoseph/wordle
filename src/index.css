@@ -10,6 +10,7 @@
   border-radius: 0.3rem;
   display: inline-block;
   position: relative; */
+  display: block;
 }
 
 .react-datepicker-wrapper {
@@ -36,4 +37,9 @@
   text-align: left;
     border-bottom: 1px solid #aeaeae;
     color: red;
+}
+
+.datePicker {
+    text-align: center !important;
+    margin: auto;
 }

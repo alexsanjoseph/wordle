@@ -14,6 +14,7 @@ import { isWordInWordList, isWinningWord, getWordOfDay} from './lib/words'
 import { addStatsForCompletedGame, loadStats } from './lib/stats'
 
 function App() {
+
   const [startDate, setStartDate] = useState(new Date())
   const [currentGuess, setCurrentGuess] = useState('')
   const [isGameWon, setIsGameWon] = useState(false)
@@ -33,10 +34,7 @@ function App() {
 
 
   const [stats, setStats] = useState(() => loadStats())
-
-//   useEffect(() => {
-//     saveGameStateToLocalStorage({ guesses, getWordOfDay(startDate).solution })
-//   }, [guesses])
+  const [solution, setSolution] = useState(getWordOfDay(startDate).solution)
 
   useEffect(() => {
     if (isGameWon) {
@@ -69,7 +67,7 @@ function App() {
       }, 2000)
     }
 
-    const winningWord = isWinningWord(currentGuess, startDate)
+    const winningWord = isWinningWord(currentGuess, solution)
 
 
     if (currentGuess.length === 5 && guesses.length < 6 && !isGameWon) {
@@ -91,12 +89,21 @@ function App() {
     }
   }
 
+  const [input, setInput] = useState("")
+  const handleSolutionSubmit = (e) => {
+      console.log(input)
+    e.preventDefault()
+    setSolution(input)
+    setInput("")
+  }
+
   return (
     <div className="py-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
+
       <Alert message="Not enough letters" isOpen={isNotEnoughLetters} />
       <Alert message="Word not found" isOpen={isWordNotFoundAlertOpen} />
       <Alert
-        message={`You lost, the word was ${getWordOfDay(startDate).solution}`}
+        message={`You lost, the word was ${solution}`}
         isOpen={isGameLost}
       />
       <Alert
@@ -116,24 +123,33 @@ function App() {
         />
       </div>
 
-      <DatePicker selected={startDate} onChange={(date: Date) => {
+      <DatePicker className='datePicker' selected={startDate} onChange={(date: Date) => {
           setStartDate(date)
-          console.log(getWordOfDay(startDate).solution)
+          console.log(solution)
         }
           }/>
-      <Grid guesses={guesses} currentGuess={currentGuess} startDate={startDate}/>
+      <form onSubmit={handleSolutionSubmit}>
+        <label>
+          Input:
+          <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder='Enter Word Manually'/>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+
+          <Grid guesses={guesses} currentGuess={currentGuess} solution={solution}/>
       <Keyboard
         onChar={onChar}
         onDelete={onDelete}
         onEnter={onEnter}
         guesses={guesses}
-        startDate={startDate}
+              solution={solution}
       />
       <WinModal
         isOpen={isWinModalOpen}
         handleClose={() => setIsWinModalOpen(false)}
         guesses={guesses}
-        startDate={startDate}
+              solution={solution}
+              startDate={startDate}
         handleShare={() => {
           setIsWinModalOpen(false)
           setShareComplete(true)

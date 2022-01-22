@@ -2,14 +2,14 @@ import { MiniCompletedRow } from './MiniCompletedRow'
 
 type Props = {
   guesses: string[],
-  startDate: Date
+    solution: string
 }
 
-export const MiniGrid = ({ guesses, startDate }: Props) => {
+export const MiniGrid = ({ guesses, solution }: Props) => {
   return (
     <div className="pb-6">
       {guesses.map((guess, i) => (
-        <MiniCompletedRow key={i} guess={guess} startDate={startDate}/>
+          <MiniCompletedRow key={i} guess={guess} solution={solution}/>
       ))}
     </div>
   )

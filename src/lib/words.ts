@@ -8,8 +8,8 @@ export const isWordInWordList = (word: string) => {
   )
 }
 
-export const isWinningWord = (word: string, startDate: Date) => {
-  return getWordOfDay(startDate).solution === word
+export const isWinningWord = (word: string, solution: string) => {
+  return solution === word
 }
 
 export const getWordOfDay = (startDate: Date) => {
