@@ -131,7 +131,7 @@ function App() {
       <form onSubmit={handleSolutionSubmit}>
         <label>
           Input:
-          <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder='Enter Word Manually'/>
+          <input id="textInput" type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder='Enter Word Manually'/>
         </label>
         <input type="submit" value="Submit" />
       </form>
