@@ -115,12 +115,15 @@ function App() {
           onClick={() => setIsStatsModalOpen(true)}
         />
       </div>
-
-      <DatePicker selected={startDate} onChange={(date: Date) => {
+        <div style={{ "padding": "0px 5rem 30px 0px", "justifyContent": "center", "display": "flex" }}>
+            <h2>Date: </h2>
+        <DatePicker selected={startDate} onChange={(date: Date) => {
           setStartDate(date)
           console.log(getWordOfDay(startDate).solution)
         }
-          }/>
+        }/>
+        </div>
+
       <Grid guesses={guesses} currentGuess={currentGuess} startDate={startDate}/>
       <Keyboard
         onChar={onChar}
