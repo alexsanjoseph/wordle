@@ -8,11 +8,11 @@ type Props = {
   onDelete: () => void
   onEnter: () => void
   guesses: string[],
-    solution: string
+  solution: string
 }
 
 export const Keyboard = ({ onChar, onDelete, onEnter, guesses, solution }: Props) => {
-    const charStatuses = getStatuses(guesses, solution)
+  const charStatuses = getStatuses(guesses, solution)
 
   const onClick = (value: KeyValue) => {
     if (value === 'ENTER') {
@@ -25,37 +25,41 @@ export const Keyboard = ({ onChar, onDelete, onEnter, guesses, solution }: Props
   }
 
   useEffect(() => {
-    //   debugger;
+    // debugger;
     //   const element = document!;
     // var doc;
 
     // if (document === null || document === undefined) {
     //     return;
-    // } else if (document.activeElement === null){
-    //     return;
-    // } else {
+    const listener = (e: KeyboardEvent) => {
+      if (document.activeElement !== null && document.activeElement.id === "textInput") {
+        return;
+      }
+      if (e.code === 'Enter') {
+        onEnter()
+      } else if (e.code === 'Backspace') {
+        onDelete()
+      } else {
+        const key = e.key.toUpperCase()
+        if (key.length === 1 && key >= 'A' && key <= 'Z') {
+          onChar(key)
+        }
+      }
+    }
+    console.log("test1")
+
+    console.log("test2")
     //     const doc = document;
     // }
     // //   if (element !== null) {
-    //   debugger;
-    // if (doc.activeElement.id != "textInput"){
-    //     const listener = (e: KeyboardEvent) => {
-    //         if (e.code === 'Enter') {
-    //             onEnter()
-    //         } else if (e.code === 'Backspace') {
-    //             onDelete()
-    //         } else {
-    //             const key = e.key.toUpperCase()
-    //             if (key.length === 1 && key >= 'A' && key <= 'Z') {
-    //                 onChar(key)
-    //             }
-    //         }
-    //     }
-    //     window.addEventListener('keyup', listener)
-    //     return () => {
-    //         window.removeEventListener('keyup', listener)
-    //     }
-    // }
+    // debugger;
+    // if (document.activeElement.id !== "textInput") {
+    // debugger
+
+    window.addEventListener('keyup', listener)
+    return () => {
+      window.removeEventListener('keyup', listener)
+    }
   }, [onEnter, onDelete, onChar])
 
   return (
