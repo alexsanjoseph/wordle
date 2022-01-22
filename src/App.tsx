@@ -8,14 +8,15 @@ import { AboutModal } from './components/modals/AboutModal'
 import { InfoModal } from './components/modals/InfoModal'
 import { WinModal } from './components/modals/WinModal'
 import { StatsModal } from './components/modals/StatsModal'
-import DatePicker from 'react-datepicker'
+// import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { isWordInWordList, isWinningWord, getWordOfDay} from './lib/words'
 import { addStatsForCompletedGame, loadStats } from './lib/stats'
 
 function App() {
 
-  const [startDate, setStartDate] = useState(new Date())
+  const startDate = new Date()
+//   const [startDate, setStartDate] = useState(new Date())
   const [currentGuess, setCurrentGuess] = useState('')
   const [isGameWon, setIsGameWon] = useState(false)
   const [isWinModalOpen, setIsWinModalOpen] = useState(false)
@@ -123,11 +124,11 @@ function App() {
         />
       </div>
 
-      <DatePicker className='datePicker' selected={startDate} onChange={(date: Date) => {
+      {/* <DatePicker className='datePicker' selected={startDate} onChange={(date: Date) => {
           setStartDate(date)
           console.log(solution)
         }
-          }/>
+          }/> */}
       <form onSubmit={handleSolutionSubmit}>
         <label>
           Input:
