@@ -1,5 +1,3 @@
-import { getWordOfDay } from './words'
-
 export type CharStatus = 'absent' | 'present' | 'correct'
 
 export type CharValue =

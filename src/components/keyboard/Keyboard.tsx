@@ -24,24 +24,24 @@ export const Keyboard = ({ onChar, onDelete, onEnter, guesses, solution }: Props
     }
   }
 
-//   useEffect(() => {
-//     const listener = (e: KeyboardEvent) => {
-//       if (e.code === 'Enter') {
-//         onEnter()
-//       } else if (e.code === 'Backspace') {
-//         onDelete()
-//       } else {
-//         const key = e.key.toUpperCase()
-//         if (key.length === 1 && key >= 'A' && key <= 'Z') {
-//           onChar(key)
-//         }
-//       }
-//     }
-//     window.addEventListener('keyup', listener)
-//     return () => {
-//       window.removeEventListener('keyup', listener)
-//     }
-//   }, [onEnter, onDelete, onChar])
+  useEffect(() => {
+    const listener = (e: KeyboardEvent) => {
+      if (e.code === 'Enter') {
+        onEnter()
+      } else if (e.code === 'Backspace') {
+        onDelete()
+      } else {
+        const key = e.key.toUpperCase()
+        if (key.length === 1 && key >= 'A' && key <= 'Z') {
+          onChar(key)
+        }
+      }
+    }
+    window.addEventListener('keyup', listener)
+    return () => {
+      window.removeEventListener('keyup', listener)
+    }
+  }, [onEnter, onDelete, onChar])
 
   return (
     <div>

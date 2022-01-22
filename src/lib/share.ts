@@ -1,5 +1,4 @@
 import { getGuessStatuses } from './statuses'
-import { getWordOfDay } from './words'
 
 export const shareStatus = (guesses: string[], solution: string) => {
   navigator.clipboard.writeText(
@@ -8,7 +7,7 @@ export const shareStatus = (guesses: string[], solution: string) => {
       "1" +
       ' ' +
       guesses.length +
-      '/6\n\n' +
+      '/10\n\n' +
       generateEmojiGrid(guesses, solution)
   )
 }
