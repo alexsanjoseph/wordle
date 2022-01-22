@@ -1,10 +1,10 @@
 import { getGuessStatuses } from './statuses'
-// import { solutionIndex } from './words'
+import { getWordOfDay } from './words'
 
 export const shareStatus = (guesses: string[], startDate: Date) => {
   navigator.clipboard.writeText(
     'Wordle ' +
-      -1 +
+      getWordOfDay(startDate).solutionIndex +
       ' ' +
       guesses.length +
       '/6\n\n' +

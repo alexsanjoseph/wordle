@@ -14,11 +14,11 @@ export const isWinningWord = (word: string, startDate: Date) => {
 
 export const getWordOfDay = (startDate: Date) => {
   // January 1, 2022 Game Epoch
-  const epochMs = 1641013200000 - 86400 * 1000 * 197
+  const epochMs = 1641013200000 + (10.5 * 3600 * 1000) - 86400 * 1000 * 197
   const now = startDate.valueOf()
   const msInDay = 86400 * 1000
   const index = Math.floor((now - epochMs) / msInDay)
- console.log(index)
+    console.log(WORDS[index].toUpperCase())
   return {
     solution: WORDS[index].toUpperCase(),
     solutionIndex: index,
