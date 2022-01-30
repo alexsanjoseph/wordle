@@ -34,6 +34,10 @@ function App() {
     return []
   })
 
+  // const maxGuesses = 10;
+
+  const [maxGuesses, setMaxGuesses] = useState(10)
+
 
   const [stats, setStats] = useState(() => loadStats())
   const [solution, setSolution] = useState(getWordOfDay(startDate).solution)
@@ -45,7 +49,7 @@ function App() {
   }, [isGameWon])
 
   const onChar = (value: string) => {
-    if (currentGuess.length < 5 && guesses.length < 10) {
+    if (currentGuess.length < 5 && guesses.length < maxGuesses + 1) {
       setCurrentGuess(`${currentGuess}${value}`)
     }
   }
@@ -55,7 +59,7 @@ function App() {
   }
 
   const onEnter = () => {
-    if (currentGuess.length !== 5 && guesses.length > 0) {
+    if (currentGuess.length !== 5 && guesses.length > maxGuesses) {
       console.log(guesses)
       setIsNotEnoughLetters(true)
       return setTimeout(() => {
@@ -73,7 +77,7 @@ function App() {
     const winningWord = isWinningWord(currentGuess, solution)
 
 
-    if (currentGuess.length === 5 && guesses.length < 11 && !isGameWon) {
+    if (currentGuess.length === 5 && guesses.length < maxGuesses + 1 && !isGameWon) {
       setGuesses([...guesses, currentGuess])
       setCurrentGuess('')
 
@@ -82,7 +86,7 @@ function App() {
         return setIsGameWon(true)
       }
 
-      if (guesses.length === 10) {
+      if (guesses.length === maxGuesses) {
         setStats(addStatsForCompletedGame(stats, guesses.length + 1))
         setIsGameLost(true)
         return setTimeout(() => {
@@ -106,7 +110,7 @@ function App() {
   }
 
   const buttonClassAbout = "mx-auto mt-8 flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-  const buttonClassSubmit = "ml-5 px-3.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+  const buttonClassSubmit = "ml-5 px-3.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-48"
 
   return (
     <div className="py-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -139,15 +143,26 @@ function App() {
           log(solution)
         }
           }/> */}
-      <form onSubmit={handleSolutionSubmit} style={{ "padding": "0px 10px 30px 10px", "justifyContent": "center", "display": wordEntered ? "none" : "flex" }}>
+      <form onSubmit={handleSolutionSubmit} style={{ "padding": "0px 10px 30px 10px", "justifyContent": "center", "display": wordEntered ? "none" : "flex", "flexDirection": "column", alignItems: "center" }}>
+        <div>
+          <label>
+            Input:
+            <input
+              id="textInput" type="text"
+              style={{ "textTransform": 'uppercase', "border": "solid 1px", "margin": "5px", width: "200px", paddingLeft: "5px" }}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder='Enter 5-Letter Word' />
+          </label>
+        </div>
         <label>
-          Input:
+          Max Guesses:
           <input
-            id="textInput" type="text"
-            style={{ "textTransform": 'uppercase', "border": "solid 1px", "margin": "5px", width: "200px", paddingLeft: "5px" }}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder='Enter 5-Letter Word' />
+            id="guessInput" type="number"
+            style={{ "textTransform": 'uppercase', "border": "solid 1px", "margin": "15px", width: "50px", paddingLeft: "5px", }}
+            value={maxGuesses}
+            onChange={(e) => setMaxGuesses(parseInt(e.target.value))}
+          />
         </label>
         <input className={buttonClassSubmit} type="submit" value="Submit" />
       </form>
