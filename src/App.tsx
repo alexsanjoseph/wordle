@@ -165,6 +165,7 @@ function App() {
           type="button"
           className={buttonClassAbout}
           onClick={() => refreshPage()}
+          style={{ background: "lightpink" }}
         >
           Refresh for new game
         </button>
