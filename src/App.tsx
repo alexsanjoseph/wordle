@@ -36,7 +36,7 @@ function App() {
 
   // const maxGuesses = 10;
 
-  const [maxGuesses, setMaxGuesses] = useState(2)
+  const [maxGuesses, setMaxGuesses] = useState(10)
   const keyboardRef = useRef<null | HTMLDivElement>(null);
 
   const [stats, setStats] = useState(() => loadStats())
