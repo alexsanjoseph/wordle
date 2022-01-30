@@ -1,6 +1,6 @@
 import { InformationCircleIcon } from '@heroicons/react/outline'
 import { ChartBarIcon } from '@heroicons/react/outline'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Alert } from './components/alerts/Alert'
 import { Grid } from './components/grid/Grid'
 import { Keyboard } from './components/keyboard/Keyboard'
@@ -37,7 +37,7 @@ function App() {
   // const maxGuesses = 10;
 
   const [maxGuesses, setMaxGuesses] = useState(10)
-
+  const keyboardRef = useRef<null | HTMLDivElement>(null);
 
   const [stats, setStats] = useState(() => loadStats())
   const [solution, setSolution] = useState(getWordOfDay(startDate).solution)
@@ -73,6 +73,11 @@ function App() {
         setIsWordNotFoundAlertOpen(false)
       }, 2000)
     }
+
+    if (keyboardRef.current !== null) {
+      keyboardRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+
 
     const winningWord = isWinningWord(currentGuess, solution)
 
@@ -169,18 +174,22 @@ function App() {
 
       <div style={{ "display": wordEntered ? "" : "none" }} >
         <Grid guesses={guesses} currentGuess={currentGuess} solution={solution} />
-        <Keyboard
-          onChar={onChar}
-          onDelete={onDelete}
-          onEnter={onEnter}
-          guesses={guesses}
-          solution={solution}
-        />
+        <div ref={keyboardRef}>
+          <Keyboard
+            onChar={onChar}
+            onDelete={onDelete}
+            onEnter={onEnter}
+            guesses={guesses}
+            solution={solution}
+
+          />
+        </div>
         <button
           type="button"
           className={buttonClassAbout}
           onClick={() => refreshPage()}
           style={{ background: "lightpink" }}
+
         >
           Refresh for new game
         </button>
