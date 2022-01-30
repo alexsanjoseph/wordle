@@ -100,6 +100,9 @@ function App() {
     setInput("")
   }
 
+  const buttonClassAbout = "mx-auto mt-8 flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+  const buttonClassSubmit = "ml-5 px-3.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+
   return (
     <div className="py-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
 
@@ -141,7 +144,7 @@ function App() {
             onChange={(e) => setInput(e.target.value)}
             placeholder='Enter Word' />
         </label>
-        <input type="submit" value="Submit" />
+        <input className={buttonClassSubmit} type="submit" value="Submit" />
       </form>
 
       <div style={{ "display": wordEntered ? "" : "none" }} >
@@ -153,6 +156,13 @@ function App() {
           guesses={guesses}
           solution={solution}
         />
+        <button
+          type="button"
+          className={buttonClassAbout}
+          onClick={() => setIsAboutModalOpen(true)}
+        >
+          About this game
+        </button>
       </div>
 
 
@@ -185,13 +195,7 @@ function App() {
         handleClose={() => setIsAboutModalOpen(false)}
       />
 
-      <button
-        type="button"
-        className="mx-auto mt-8 flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        onClick={() => setIsAboutModalOpen(true)}
-      >
-        About this game
-      </button>
+
     </div>
   )
 }
