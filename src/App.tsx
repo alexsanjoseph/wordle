@@ -166,7 +166,7 @@ function App() {
           className={buttonClassAbout}
           onClick={() => refreshPage()}
         >
-          Refresh for New game
+          Refresh for new game
         </button>
 
         <button
