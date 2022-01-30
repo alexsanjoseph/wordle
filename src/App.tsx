@@ -36,7 +36,7 @@ function App() {
 
   // const maxGuesses = 10;
 
-  const [maxGuesses, setMaxGuesses] = useState(10)
+  const [maxGuesses, setMaxGuesses] = useState(2)
   const keyboardRef = useRef<null | HTMLDivElement>(null);
 
   const [stats, setStats] = useState(() => loadStats())
@@ -173,7 +173,7 @@ function App() {
       </form>
 
       <div style={{ "display": wordEntered ? "" : "none" }} >
-        <Grid guesses={guesses} currentGuess={currentGuess} solution={solution} />
+        <Grid guesses={guesses} currentGuess={currentGuess} solution={solution} maxGuesses={maxGuesses} />
         <div ref={keyboardRef}>
           <Keyboard
             onChar={onChar}
