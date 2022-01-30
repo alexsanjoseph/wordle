@@ -46,9 +46,6 @@ export const Keyboard = ({ onChar, onDelete, onEnter, guesses, solution }: Props
         }
       }
     }
-    console.log("test1")
-
-    console.log("test2")
     //     const doc = document;
     // }
     // //   if (element !== null) {

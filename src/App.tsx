@@ -27,6 +27,7 @@ function App() {
   const [isWordNotFoundAlertOpen, setIsWordNotFoundAlertOpen] = useState(false)
   const [isGameLost, setIsGameLost] = useState(false)
   const [shareComplete, setShareComplete] = useState(false)
+  const [wordEntered, setWordEntered] = useState(false)
 
   const [guesses, setGuesses] = useState<string[]>(() => {
     // const loaded = {guesses.}
@@ -44,7 +45,7 @@ function App() {
   }, [isGameWon])
 
   const onChar = (value: string) => {
-    if (currentGuess.length < 5 && guesses.length < 6) {
+    if (currentGuess.length < 5 && guesses.length < 10) {
       setCurrentGuess(`${currentGuess}${value}`)
     }
   }
@@ -54,15 +55,15 @@ function App() {
   }
 
   const onEnter = () => {
-    if (!(currentGuess.length === 5)) {
-      console.log("CurrentGuess" + currentGuess)
+    if (currentGuess.length !== 5 && guesses.length > 0) {
+      console.log(guesses)
       setIsNotEnoughLetters(true)
       return setTimeout(() => {
         setIsNotEnoughLetters(false)
       }, 2000)
     }
 
-    if (!isWordInWordList(currentGuess)) {
+    if (!isWordInWordList(currentGuess) && guesses.length > 0) {
       setIsWordNotFoundAlertOpen(true)
       return setTimeout(() => {
         setIsWordNotFoundAlertOpen(false)
@@ -93,9 +94,9 @@ function App() {
 
   const [input, setInput] = useState("")
   const handleSolutionSubmit = (e) => {
-    console.log(input)
     e.preventDefault()
     setSolution(input.toUpperCase())
+    setWordEntered(true)
     setInput("")
   }
 
@@ -127,10 +128,10 @@ function App() {
 
       {/* <DatePicker className='datePicker' selected={startDate} onChange={(date: Date) => {
           setStartDate(date)
-          console.log(solution)
+          log(solution)
         }
           }/> */}
-      <form onSubmit={handleSolutionSubmit} style={{ "padding": "0px 10px 30px 10px", "justifyContent": "center", "display": "flex" }}>
+      <form onSubmit={handleSolutionSubmit} style={{ "padding": "0px 10px 30px 10px", "justifyContent": "center", "display": wordEntered ? "none" : "flex" }}>
         <label>
           Input:
           <input
@@ -143,14 +144,19 @@ function App() {
         <input type="submit" value="Submit" />
       </form>
 
-      <Grid guesses={guesses} currentGuess={currentGuess} solution={solution} />
-      <Keyboard
-        onChar={onChar}
-        onDelete={onDelete}
-        onEnter={onEnter}
-        guesses={guesses}
-        solution={solution}
-      />
+      <div style={{ "display": wordEntered ? "" : "none" }} >
+        <Grid guesses={guesses} currentGuess={currentGuess} solution={solution} />
+        <Keyboard
+          onChar={onChar}
+          onDelete={onDelete}
+          onEnter={onEnter}
+          guesses={guesses}
+          solution={solution}
+        />
+      </div>
+
+
+
       <WinModal
         isOpen={isWinModalOpen}
         handleClose={() => setIsWinModalOpen(false)}
