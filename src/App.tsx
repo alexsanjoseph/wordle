@@ -100,6 +100,11 @@ function App() {
     setInput("")
   }
 
+
+  const refreshPage = () => {
+    window.location.reload();
+  }
+
   const buttonClassAbout = "mx-auto mt-8 flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
   const buttonClassSubmit = "ml-5 px-3.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 
@@ -139,10 +144,10 @@ function App() {
           Input:
           <input
             id="textInput" type="text"
-            style={{ "textTransform": 'uppercase', "border": "solid 1px", "margin": "5px" }}
+            style={{ "textTransform": 'uppercase', "border": "solid 1px", "margin": "5px", width: "200px", paddingLeft: "5px" }}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder='Enter Word' />
+            placeholder='Enter 5-Letter Word' />
         </label>
         <input className={buttonClassSubmit} type="submit" value="Submit" />
       </form>
@@ -156,6 +161,14 @@ function App() {
           guesses={guesses}
           solution={solution}
         />
+        <button
+          type="button"
+          className={buttonClassAbout}
+          onClick={() => refreshPage()}
+        >
+          Refresh for New game
+        </button>
+
         <button
           type="button"
           className={buttonClassAbout}
